@@ -27,4 +27,3 @@ El codigo puede estar publicado en una feature sin que este integrado en develop
 No subir .env reales, passwords, tokens, claves privadas, node_modules, target, modelos ni fotos/audios de clase. Los IDs de aplicaciones son publicos, pero nunca sustituyen contrasenas ni consentimiento. Los tests locales con claves generadas/fixtures no acreditan login Duoc real.
 
 Los workflows solo prueban codigo, con permisos de lectura; no despliegan AWS/Azure y no necesitan sus credenciales. Los integrantes realizan sus propios commits con su identidad: no se inventa autoria ni se distribuyen commits artificialmente.
-
