@@ -1,0 +1,55 @@
+server:
+  port: ${SERVER_PORT:8084}
+spring:
+  application:
+    name: ms-rutaexpress-messaging
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:15434/messaging_db}
+    username: ${SPRING_DATASOURCE_USERNAME:rutaexpress}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+  rabbitmq:
+    connection-timeout: 3s
+    listener:
+      simple:
+        acknowledge-mode: manual
+        default-requeue-rejected: false
+        prefetch: 10
+        concurrency: 1
+app:
+  security:
+    azure:
+      enabled: ${AZURE_ENABLED:false}
+      tenant-id: ${AZURE_TENANT_ID:}
+      audience: ${AZURE_API_CLIENT_ID:}
+      client-id: ${AZURE_SPA_CLIENT_ID:}
+      scope: ${AZURE_OPERATOR_SCOPE:operator.access}
+      jwk-set-uri: ${AZURE_JWK_SET_URI:}
+    issuer: ${COGNITO_ISSUER_URI:https://cognito-idp.us-east-1.amazonaws.com/us-east-1_omx1k5huI}
+    client-id: ${COGNITO_CLIENT_ID:41v988atubk0lrcmto285tk77i}
+  topology:
+    events-exchange: rutaexpress.events
+    commands-exchange: rutaexpress.commands
+    dead-letter-exchange: rutaexpress.dlx
+    notifications-queue: rutaexpress.notifications
+    tickets-queue: rutaexpress.tickets
+    audit-queue: rutaexpress.audit
+    notifications-dlq: rutaexpress.notifications.dlq
+    tickets-dlq: rutaexpress.tickets.dlq
+    audit-dlq: rutaexpress.audit.dlq
+    notifications-key: shipment.*
+    audit-key: shipment.#
+    tickets-key: ticket.generate
+  messaging:
+    retry-delay-ms: 200
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: never
