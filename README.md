@@ -19,8 +19,8 @@ La implementación se encuentra en [desarrollo](https://github.com/matizk/ms-rut
 
 Los seis componentes son públicos bajo la cuenta matizk:
 
-- [interfaz-rutaexpress](https://github.com/matizk/interfaz-rutaexpress): Angular local.
-- [ms-rutaexpress-intermediario](https://github.com/matizk/ms-rutaexpress-intermediario): acceso y enrutamiento (BFF).
+- [frontend-rutaexpress](https://github.com/matizk/frontend-rutaexpress): Angular local.
+- [ms-rutaexpress-bff](https://github.com/matizk/ms-rutaexpress-bff): acceso y enrutamiento (BFF).
 - [ms-rutaexpress-catalogo](https://github.com/matizk/ms-rutaexpress-catalogo): servicios, tarifas y cupos.
 - [ms-rutaexpress-envios](https://github.com/matizk/ms-rutaexpress-envios): solicitudes, estados y herramientas de integración.
 - [ms-rutaexpress-mensajeria](https://github.com/matizk/ms-rutaexpress-mensajeria): eventos, comprobantes y administración RabbitMQ.
