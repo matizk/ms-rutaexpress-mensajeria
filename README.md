@@ -6,7 +6,7 @@ Flujo y revisión en [COLABORACION.md](COLABORACION.md). El CI ejecuta Maven ver
 
 ## Ejecución del sistema
 
-Mantener esta carpeta junto a `ms-rutaexpress-envios`, `ms-rutaexpress-catalogo`, `ms-rutaexpress-reportes`, `ms-rutaexpress-intermediario` y `interfaz-rutaexpress`.
+Mantener esta carpeta junto a `ms-rutaexpress-envios`, `ms-rutaexpress-catalogo`, `ms-rutaexpress-reportes`, `ms-rutaexpress-bff` y `frontend-rutaexpress`.
 
 Desde PowerShell, en `ms-rutaexpress-envios`:
 
@@ -77,7 +77,7 @@ Tipos admitidos: `shipment.created` y `shipment.status_changed`. Cada evento se 
 
 ## API protegida
 
-El frontend llama al BFF; este reenvía el bearer token al servicio. La administración conserva Cognito con firma RS256, emisor, expiración, `token_use=access`, `client_id` y grupo `Admin`. Opcionalmente se aceptan tokens delegados Azure v2 del tenant/API/SPA configurados, solo para `GET /api/operator/confirmations/{codigo}`; nunca conceden administración. Esa consulta devuelve únicamente un ticket TICKET / shipment.status_changed / ACEPTADO, o 404 si todavía no existe. **Azure está preparado en código, deshabilitado y pendiente de configurar/probar con el tenant real.** Guía en la carpeta hermana `interfaz-rutaexpress/docs/AZURE_OPERADOR.md`.
+El frontend llama al BFF; este reenvía el bearer token al servicio. La administración conserva Cognito con firma RS256, emisor, expiración, `token_use=access`, `client_id` y grupo `Admin`. Opcionalmente se aceptan tokens delegados Azure v2 del tenant/API/SPA configurados, solo para `GET /api/operator/confirmations/{codigo}`; nunca conceden administración. Esa consulta devuelve únicamente un ticket TICKET / shipment.status_changed / ACEPTADO, o 404 si todavía no existe. **Azure está preparado en código, deshabilitado y pendiente de configurar/probar con el tenant real.** Guía en la carpeta hermana `frontend-rutaexpress/docs/AZURE_OPERADOR.md`.
 
 | Método y ruta | Función |
 | --- | --- |
