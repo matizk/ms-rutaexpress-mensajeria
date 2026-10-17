@@ -1,14 +1,14 @@
 # RutaExpress: mensajería y administración RabbitMQ (EV2)
 
-Servicio Java 21/Spring Boot 4.1.1. Consume eventos de Envíos, guarda notificaciones internas, comprobantes y auditoría en PostgreSQL, y expone una API de administración RabbitMQ protegida con JWT. La versión de integración EV2 se obtiene de `desarrollo`, mediante el [PR #1](https://github.com/matizk/ms-rutaexpress-messaging/pull/1). `main` es la base inicial del repositorio, reservada para una release validada, no una implementación EV1. Consultar el PR para comprobar la fusión.
+Servicio Java 21/Spring Boot 4.1.1. Consume eventos de Envíos, guarda notificaciones internas, comprobantes y auditoría en PostgreSQL, y expone una API de administración RabbitMQ protegida con JWT. La versión de integración EV2 se obtiene de `desarrollo`, mediante el [PR #1](https://github.com/matizk/ms-rutaexpress-mensajeria/pull/1). `main` es la base inicial del repositorio, reservada para una entrega validada, no una implementación EV1. Consultar el PR para comprobar la fusión.
 
-Flujo y revisión en [CONTRIBUTING.md](CONTRIBUTING.md). El CI ejecuta Maven verify con Java 21, sin secretos cloud; el despliegue EC2/RDS y el login institucional siguen pendientes de configuración/prueba real.
+Flujo y revisión en [COLABORACION.md](COLABORACION.md). El CI ejecuta Maven verify con Java 21, sin secretos cloud; el despliegue EC2/RDS y el login institucional siguen pendientes de configuración/prueba real.
 
 ## Ejecución del sistema
 
-Mantener esta carpeta junto a `ms-rutaexpress-shipments`, `ms-rutaexpress-catalog`, `ms-rutaexpress-report`, `ms-rutaexpress-bff` y `frontend-rutaexpress`.
+Mantener esta carpeta junto a `ms-rutaexpress-envios`, `ms-rutaexpress-catalogo`, `ms-rutaexpress-reportes`, `ms-rutaexpress-intermediario` y `interfaz-rutaexpress`.
 
-Desde PowerShell, en `ms-rutaexpress-shipments`:
+Desde PowerShell, en `ms-rutaexpress-envios`:
 
 ```powershell
 .\iniciar-ev2.ps1
@@ -77,7 +77,7 @@ Tipos admitidos: `shipment.created` y `shipment.status_changed`. Cada evento se 
 
 ## API protegida
 
-El frontend llama al BFF; este reenvía el bearer token al servicio. La administración conserva Cognito con firma RS256, emisor, expiración, `token_use=access`, `client_id` y grupo `Admin`. Opcionalmente se aceptan tokens delegados Azure v2 del tenant/API/SPA configurados, solo para `GET /api/operator/confirmations/{codigo}`; nunca conceden administración. Esa consulta devuelve únicamente un ticket TICKET / shipment.status_changed / ACEPTADO, o 404 si todavía no existe. **Azure está preparado en código, deshabilitado y pendiente de configurar/probar con el tenant real.** Guía en la carpeta hermana `frontend-rutaexpress/docs/AZURE_OPERADOR.md`.
+El frontend llama al BFF; este reenvía el bearer token al servicio. La administración conserva Cognito con firma RS256, emisor, expiración, `token_use=access`, `client_id` y grupo `Admin`. Opcionalmente se aceptan tokens delegados Azure v2 del tenant/API/SPA configurados, solo para `GET /api/operator/confirmations/{codigo}`; nunca conceden administración. Esa consulta devuelve únicamente un ticket TICKET / shipment.status_changed / ACEPTADO, o 404 si todavía no existe. **Azure está preparado en código, deshabilitado y pendiente de configurar/probar con el tenant real.** Guía en la carpeta hermana `interfaz-rutaexpress/docs/AZURE_OPERADOR.md`.
 
 | Método y ruta | Función |
 | --- | --- |
@@ -120,7 +120,7 @@ Con JDK 21 o superior:
 
 Las pruebas cubren ACK después de persistir, contrato inválido, reintentos agotados, errores inesperados, ACK fallido, duplicados y concurrencia; idempotencia en base de datos; validación REST, autorización y validación de claims; protección de colas base y rechazo a borrar colas con mensajes.
 
-La prueba del stack usa PostgreSQL y RabbitMQ reales. Crea datos ficticios, reproduce duplicados y mensajes inválidos, verifica las tres DLQ, detiene y recupera RabbitMQ para comprobar el outbox, y reinicia las tres bases para verificar persistencia. Deja evidencia en `ms-rutaexpress-shipments/evidencias/EV2_PRUEBA_LOCAL.md`. No prueba un JWT Azure real ni certifica un despliegue cloud.
+La prueba del stack usa PostgreSQL y RabbitMQ reales. Crea datos ficticios, reproduce duplicados y mensajes inválidos, verifica las tres DLQ, detiene y recupera RabbitMQ para comprobar el outbox, y reinicia las tres bases para verificar persistencia. Deja evidencia en `ms-rutaexpress-envios/evidencias/EV2_PRUEBA_LOCAL.md`. No prueba un JWT Azure real ni certifica un despliegue cloud.
 
 ## Ubicación del código
 
