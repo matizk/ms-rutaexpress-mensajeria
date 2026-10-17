@@ -1,6 +1,6 @@
 # RutaExpress: mensajería y administración RabbitMQ (EV2)
 
-Servicio Java 21/Spring Boot 4.1.1. Consume eventos de Envíos, guarda notificaciones internas, comprobantes y auditoría en PostgreSQL, y expone una API de administración RabbitMQ protegida con JWT. La versión de integración EV2 se obtiene de `develop`, mediante el [PR #1](https://github.com/matizk/ms-rutaexpress-messaging/pull/1). `main` es la base inicial del repositorio, reservada para una release validada, no una implementación EV1. Consultar el PR para comprobar la fusión.
+Servicio Java 21/Spring Boot 4.1.1. Consume eventos de Envíos, guarda notificaciones internas, comprobantes y auditoría en PostgreSQL, y expone una API de administración RabbitMQ protegida con JWT. La versión de integración EV2 se obtiene de `desarrollo`, mediante el [PR #1](https://github.com/matizk/ms-rutaexpress-messaging/pull/1). `main` es la base inicial del repositorio, reservada para una release validada, no una implementación EV1. Consultar el PR para comprobar la fusión.
 
 Flujo y revisión en [CONTRIBUTING.md](CONTRIBUTING.md). El CI ejecuta Maven verify con Java 21, sin secretos cloud; el despliegue EC2/RDS y el login institucional siguen pendientes de configuración/prueba real.
 
