@@ -4,7 +4,7 @@ Convención acordada por el equipo el 17-10-2026: `matizk` para el trabajo perso
 
 ## Ramas
 
-- `main`: base inicial de este repositorio nuevo; no es una implementación EV1. Solo recibe una entrega/corrección revisada; no subir cambios directamente.
+- `main`: versión estable publicada de Mensajería, servicio incorporado en EV2. Su historial conserva la base inicial del repositorio, que no era una implementación EV1. Solo recibe una entrega/corrección revisada; no subir cambios directamente.
 - `desarrollo`: integración del equipo; recibe cambios mediante solicitud de integración revisada.
 - `matizk`: rama personal de esta copia. Se actualiza desde desarrollo antes de continuar, preservando cambios propios.
 - Los otros integrantes conservan sus ramas personales y abren sus PR hacia desarrollo.
