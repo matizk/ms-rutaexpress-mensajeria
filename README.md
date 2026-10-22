@@ -2,9 +2,11 @@
 
 Servicio Java 21/Spring Boot 4.1.1. Consume eventos de Envíos, guarda notificaciones internas, comprobantes y auditoría en PostgreSQL, y expone una API de administración RabbitMQ protegida con JWT. La versión de integración EV2 se obtiene de `desarrollo`, mediante el [PR #1](https://github.com/matizk/ms-rutaexpress-mensajeria/pull/1). `main` es la base inicial del repositorio, reservada para una entrega validada, no una implementación EV1. Consultar el PR para comprobar la fusión.
 
-Flujo y revisión en [COLABORACION.md](COLABORACION.md). El CI ejecuta Maven verify con Java 21, sin secretos cloud; el despliegue EC2/RDS y el login institucional siguen pendientes de configuración/prueba real.
+Flujo y revisión en [COLABORACION.md](COLABORACION.md). El CI ejecuta Maven verify con Java 21, sin secretos cloud. Actualización documental del 21-10-2026 en `matizk`: el integrante completó el flujo Azure Duoc del caso `RX-1792623980566`; Daniel confirmó en RDS las recepciones AUDIT, NOTIFICATION y TICKET del evento `d88da0d8-4f06-42b0-9f6d-03c7916052c1` y los consumidores activos en RabbitMQ. Esa inspección privada se atribuye a Daniel. [Fuentes y pendientes de cierre](https://github.com/matizk/ms-rutaexpress-envios/blob/matizk/CONTINUAR_EV2_EQUIPO.md). No se declara una nueva integración o despliegue por corregir este texto.
 
-## Ejecución del sistema
+## Laboratorio local, alternativo al AWS existente
+
+Para consumir el despliegue cloud vigente se inicia únicamente Angular local con su proxy al Gateway. Los comandos siguientes son para un laboratorio local elegido expresamente; no ejecutarlos en AWS ni iniciar otro backend solo para probar el operador.
 
 Mantener esta carpeta junto a `ms-rutaexpress-envios`, `ms-rutaexpress-catalogo`, `ms-rutaexpress-reportes`, `ms-rutaexpress-bff` y `frontend-rutaexpress`.
 
@@ -77,7 +79,7 @@ Tipos admitidos: `shipment.created` y `shipment.status_changed`. Cada evento se 
 
 ## API protegida
 
-El frontend llama al BFF; este reenvía el bearer token al servicio. La administración conserva Cognito con firma RS256, emisor, expiración, `token_use=access`, `client_id` y grupo `Admin`. Opcionalmente se aceptan tokens delegados Azure v2 del tenant/API/SPA configurados, solo para `GET /api/operator/confirmations/{codigo}`; nunca conceden administración. Esa consulta devuelve únicamente un ticket TICKET / shipment.status_changed / ACEPTADO, o 404 si todavía no existe. **Azure está preparado en código, deshabilitado y pendiente de configurar/probar con el tenant real.** Guía en la carpeta hermana `frontend-rutaexpress/docs/AZURE_OPERADOR.md`.
+El frontend llama al BFF; este reenvía el bearer token al servicio. La administración conserva Cognito con firma RS256, emisor, expiración, `token_use=access`, `client_id` y grupo `Admin`. Se aceptan tokens delegados Azure v2 del tenant/API/SPA configurados, solo para `GET /api/operator/confirmations/{codigo}`; nunca conceden administración. Esa consulta devuelve únicamente un ticket TICKET / shipment.status_changed / ACEPTADO, o 404 si todavía no existe. **El entorno cloud del equipo ya tiene Azure configurado y se obtuvo el ticket institucional del caso indicado.** Un laboratorio nuevo debe habilitar/alinear sus propias variables; sus valores por defecto no configuran el despliegue remoto. Guía en la carpeta hermana `frontend-rutaexpress/docs/AZURE_OPERADOR.md`.
 
 | Método y ruta | Función |
 | --- | --- |
